@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>One moment, connection check...</title>
+  <style>
+    @font-face {
+      font-family: "AeonikTRIAL";
+      src: url("https://raw.githubusercontent.com/drimixprivet/sk3dguard-captcha/fonts/AeonikTRIAL-Regular.otf");
+    }
+
+    :root {
+      --transition: all .3s ease-in-out;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "AeonikTRIAL";
+      user-select: none;
+      -moz-user-select: none;
+    }
+
+    body {
+      background: rgb(5, 5, 5);
+    }
+
+    .challenger-challenge {
+      text-align: center;
+      position: absolute;
+      color: rgb(255, 255, 255);
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 45px;
+    }
+
+    .challenger-challenge > span {
+      animation: challengeText .5s ease-in-out alternate infinite;
+    }
+
+    .challenge-text {
+      font-size: 16.5px;
+      filter: brightness(.65);
+      margin: 0 auto;
+      width: 100%;
+      max-width: 250px;
+    }
+
+    .challenger-bottom {
+      position: absolute;
+      text-align: center;
+      color: rgb(255, 255, 255);
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      filter: brightness(.65);
+    }
+
+    .challenger-bottom a {
+      transition: var(--transition);
+      text-decoration: none;
+      color: orange;
+    }
+
+    .challenger-bottom a:hover {
+      filter: brightness(.5);
+    }
+
+    .radar-container {
+      position: absolute;
+      margin: 40px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      left: 50%;
+      top: 35%;
+      transform: translate(-50%, -45%);
+      z-index: -1;
+      opacity: 0;
+      animation: fadeIn 1s ease-out forwards;
+      animation-delay: 0.2s;
+    }
+
+    .radar-circle {
+      position: absolute;
+      width: 225px;
+      height: 225px;
+      border: 1px solid orange;
+      border-radius: 50%;
+      opacity: 0;
+      animation: pulse 2s linear infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(0.5);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9);
+      }
+      100% {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    @keyframes challengeText {
+      from {
+        filter: brightness(.6);
+      }
+      to {
+        filter: brightness(1) drop-shadow(.1px .1px 10px rgba(255, 166, 0, 0.75));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="challenger">
+    <div class="challenger-challenge">
+      <span id="host"></span>
+
+      <div class="challenge-text">
+        We are checking your connection to the website
+      </div>
+
+      <div class="radar-container">
+        <span class="radar-circle" style="animation-delay: 0s"></span>
+        <span class="radar-circle" style="animation-delay: 0.6s"></span>
+        <span class="radar-circle" style="animation-delay: 1.2s"></span>
+      </div>
+
+      <div
+        class="challenger-mainchallenge"
+        style="font-size: 16px; margin-top: 10px;"
+      >
+        ::CAPTCHA_BOX::
+      </div>
+    </div>
+
+    <div class="challenger-bottom">
+      © 2022-2025 Sk3dGuard. All Rights Reserved, Powered by
+      <a href="https://www.cloudflare.com/" target="_self">CloudFlare</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("host").textContent = window.location.host;
+  </script>
+</body>
+</html>
